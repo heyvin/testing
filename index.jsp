@@ -1,17 +1,22 @@
+<%@ page import="java.io.*, java.util.*" %>
+
 <html>
 <head>
-<title>Using GET and POST Method to Read Form Data</title>
+	<title>Hits Counter</title>
 </head>
 <body>
-<center>
-<h1>Using GET Method to Read Form Data</h1>
-<ul>
-<li><p><b>First Name:</b>
-   <%= request.getParameter("first_name")%>
-</p></li>
-<li><p><b>Last  Name:</b>
-   <%= request.getParameter("last_name")%>
-</p></li>
-</ul>
+	<%
+	Integer hitsCount = (Integer)application.getAttribute("hitCounter");
+	if (hitsCount == null || hitsCount == 0) { //first visit
+		out.println("Welcome to the website.");
+		hitsCount = 1;
+	} else { //return visit
+		out.println("Welcome back to our website.");
+		hitsCount++;
+	}
+	application.setAttribute("hitCounter", hitsCount);
+	%>
+	
+	<p>Total visits: <%= application.getAttribute("hitCounter") %></p>
 </body>
 </html>
